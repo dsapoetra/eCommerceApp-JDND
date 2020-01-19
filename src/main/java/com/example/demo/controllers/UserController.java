@@ -45,13 +45,13 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
 
 		if(!createUserRequest.getPassword().contentEquals(createUserRequest.getConfirmPassword())){
-			log.info("ECOMMERCE - Create_user_fail,  Confirm password does not match password");
+			log.info("ECOMMERCE - Create user fail,  Confirm password does not match password");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
 		int passLength = createUserRequest.getPassword().length();
 		if(passLength< 7){
-			log.info("ECOMMERCE - Create_user_fail - Password length is {},  minimum password length is 7 characters", passLength);
+			log.info("ECOMMERCE - Create user fail - Password length is {},  minimum password length is 7 characters", passLength);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
@@ -62,7 +62,7 @@ public class UserController {
 		cartRepository.save(cart);
 		user.setCart(cart);
 		userRepository.save(user);
-		log.info("ECOMMERCE - Create_user_success, {}", user.getUsername());
+		log.info("ECOMMERCE - Create user success, {}", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	
